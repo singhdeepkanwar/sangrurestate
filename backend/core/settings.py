@@ -82,14 +82,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sangrur_estate_db',
-        'USER': 'postgres',
-        'PASSWORD': '', 
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        # 1. Try to read DATABASE_URL from the environment (Railway)
+        default=os.environ.get('DATABASE_URL') or 
+        
+        # 2. If not found, use your Local Postgres credentials
+        f"postgres://postgres:{'' if not 'PASSWORD' in os.environ else os.environ['PASSWORD']}@localhost:5432/sangrur_estate_db",
+        
+        conn_max_age=600
+    )
 }
 
 
