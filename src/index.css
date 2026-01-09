@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SangrurEstate Design System - Emerald Green Brand Identity */
+
+@layer base {
+  :root {
+    /* Core Brand Colors - Emerald Green */
+    --background: 0 0% 100%;
+    --foreground: 160 10% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 160 10% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 10% 15%;
+
+    /* Primary - Emerald Green (#059669) */
+    --primary: 160 94% 31%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Light Sage */
+    --secondary: 150 30% 96%;
+    --secondary-foreground: 160 94% 25%;
+
+    /* Muted - Soft Gray-Green */
+    --muted: 150 10% 96%;
+    --muted-foreground: 160 10% 45%;
+
+    /* Accent - Warm Gold */
+    --accent: 45 93% 47%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 20% 90%;
+    --input: 150 20% 90%;
+    --ring: 160 94% 31%;
+
+    --radius: 0.75rem;
+
+    /* Custom Colors */
+    --emerald-50: 152 81% 96%;
+    --emerald-100: 149 80% 90%;
+    --emerald-200: 152 76% 80%;
+    --emerald-300: 156 72% 67%;
+    --emerald-400: 158 64% 52%;
+    --emerald-500: 160 84% 39%;
+    --emerald-600: 160 94% 31%;
+    --emerald-700: 163 94% 24%;
+    --emerald-800: 163 88% 20%;
+    --emerald-900: 164 86% 16%;
+
+    /* Status Colors */
+    --status-available: 160 84% 39%;
+    --status-reserved: 45 93% 47%;
+    --status-sold: 0 84% 60%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(160 94% 31% / 0.95), hsl(163 94% 24% / 0.9));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(150 30% 98%));
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(160 10% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(160 10% 15% / 0.1), 0 2px 4px -2px hsl(160 10% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(160 10% 15% / 0.1), 0 4px 6px -4px hsl(160 10% 15% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(160 10% 15% / 0.1), 0 8px 10px -6px hsl(160 10% 15% / 0.1);
+    --shadow-card: 0 4px 20px -2px hsl(160 94% 31% / 0.1);
+    --shadow-hover: 0 20px 40px -10px hsl(160 94% 31% / 0.2);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 160 94% 31%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 150 30% 96%;
+    --sidebar-accent-foreground: 160 94% 25%;
+    --sidebar-border: 150 20% 90%;
+    --sidebar-ring: 160 94% 31%;
+  }
+
+  .dark {
+    --background: 160 10% 8%;
+    --foreground: 150 20% 95%;
+
+    --card: 160 10% 12%;
+    --card-foreground: 150 20% 95%;
+
+    --popover: 160 10% 12%;
+    --popover-foreground: 150 20% 95%;
+
+    --primary: 160 84% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 160 15% 18%;
+    --secondary-foreground: 150 20% 90%;
+
+    --muted: 160 15% 18%;
+    --muted-foreground: 150 10% 60%;
+
+    --accent: 45 93% 50%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 15% 20%;
+    --input: 160 15% 20%;
+    --ring: 160 84% 45%;
+
+    --sidebar-background: 160 10% 10%;
+    --sidebar-foreground: 150 20% 90%;
+    --sidebar-primary: 160 84% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 15% 15%;
+    --sidebar-accent-foreground: 150 20% 90%;
+    --sidebar-border: 160 15% 18%;
+    --sidebar-ring: 160 84% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  .glass-effect {
+    background: hsl(0 0% 100% / 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .status-available {
+    background-color: hsl(var(--status-available) / 0.15);
+    color: hsl(var(--status-available));
+  }
+
+  .status-reserved {
+    background-color: hsl(var(--status-reserved) / 0.15);
+    color: hsl(45 70% 35%);
+  }
+
+  .status-sold {
+    background-color: hsl(var(--status-sold) / 0.15);
+    color: hsl(var(--status-sold));
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
