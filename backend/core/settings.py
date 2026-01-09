@@ -140,10 +140,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:5173", # Vite default
     "https://sangrurestate.com",
+    "https://www.sangrurestate.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://sangrurestate-production.up.railway.app", # <--- UPDATE THIS AFTER RAILWAY DEPLOY
     "https://sangrurestate.com",
+    "https://www.sangrurestate.com",
 ]
 # DRF Configuration
 REST_FRAMEWORK = {
