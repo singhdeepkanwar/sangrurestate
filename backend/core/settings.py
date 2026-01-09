@@ -80,11 +80,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# PRINT DEBUG INFO TO LOGS
+print("--- DATABASE DEBUGGING ---")
+db_url = os.environ.get('DATABASE_URL')
+if db_url:
+    print(f"FOUND DATABASE_URL: {db_url[:15]}...") # Print first 15 chars for safety
+else:
+    print("WARNING: DATABASE_URL is missing! Falling back to localhost.")
+print("--------------------------")
 DATABASES = {
     'default': dj_database_url.config(
         # 1. Try to read DATABASE_URL from the environment (Railway)
-        default=os.environ.get('DATABASE_URL') or 
+        default= os.environ.get('DATABASE_URL') or 
         
         # 2. If not found, use your Local Postgres credentials
         f"postgres://postgres:{'' if not 'PASSWORD' in os.environ else os.environ['PASSWORD']}@localhost:5432/sangrur_estate_db",
@@ -92,7 +99,8 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
+if 'RAILWAY_ENVIRONMENT' in os.environ and not db_url:
+     print("CRITICAL ERROR: Running on Railway but DATABASE_URL is missing.")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
