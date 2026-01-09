@@ -1,8 +1,12 @@
 import axios from "axios";
 
-// Django runs on port 8000 by default
-const API_URL = "http://127.0.0.1:8000/api";
+// Automatically detects if running locally or on Vercel
+const API_URL = import.meta.env.MODE === "development"
+  ? "http://127.0.0.1:8000/api"  // Local Django
+  : "https://sangrurestate-production.up.railway.app/api"; // Production Django
 
+export const getProperties = () => axios.get(`${API_URL}/properties/`);
+// ... rest of your file
 // --- AUTHENTICATION ---
 
 export const register = (formData) => axios.post(`${API_URL}/register/`, formData);
@@ -18,8 +22,6 @@ export const getMyProfile = (token) => {
 };
 
 // --- PROPERTIES ---
-
-export const getProperties = () => axios.get(`${API_URL}/properties/`);
 
 export const addProperty = (formData, token) => {
   return axios.post(`${API_URL}/properties/`, formData, {

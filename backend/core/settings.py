@@ -142,7 +142,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://sangrurestate.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://your-backend-production.up.railway.app", # <--- UPDATE THIS AFTER RAILWAY DEPLOY
+    "https://sangrurestate-production.up.railway.app", # <--- UPDATE THIS AFTER RAILWAY DEPLOY
     "https://sangrurestate.com",
 ]
 # DRF Configuration
