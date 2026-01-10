@@ -87,7 +87,7 @@ const Index = () => {
           </div>
           <div className="relative rounded-2xl overflow-hidden shadow-2xl">
             <img 
-              src="https://images.unsplash.com/photo-1582408921715-18e7806365c1?w=800" 
+              src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800"
               alt="Sangrur Real Estate"
               className="w-full h-[400px] object-cover"
             />

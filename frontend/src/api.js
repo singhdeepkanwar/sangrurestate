@@ -1,52 +1,62 @@
 import axios from "axios";
 
-// Automatically detects if running locally or on Vercel
+// Automatically switch between Localhost and Railway based on environment
 const API_URL = import.meta.env.MODE === "development"
-  ? "http://127.0.0.1:8000/api"  // Local Django
-  : "https://sangrurestate-production.up.railway.app/api"; // Production Django
+  ? "http://127.0.0.1:8000/api"
+  : "https://sangrurestate-production.up.railway.app/api";
 
-export const getProperties = () => axios.get(`${API_URL}/properties/`);
-// ... rest of your file
+// Create an axios instance
+const api = axios.create({
+  baseURL: API_URL,
+});
+
+// --- PUBLIC ENDPOINTS ---
+export const getProperties = () => api.get("/properties/");
+export const getProperty = (id) => api.get(`/properties/${id}/`);
+export const submitLead = (data) => api.post("/leads/", data);
+
 // --- AUTHENTICATION ---
+// Used in Auth.tsx
+export const loginUser = (data) => api.post("/login/", data);
+export const registerUser = (data) => api.post("/register/", data); 
 
-export const register = (formData) => axios.post(`${API_URL}/register/`, formData);
+// --- PROTECTED ENDPOINTS ---
+// Used in ListProperty.tsx
 
-// Django returns { access: "...", refresh: "..." }
-export const login = (formData) => axios.post(`${API_URL}/login/`, formData);
-
-// Get currently logged-in user details
-export const getMyProfile = (token) => {
-  return axios.get(`${API_URL}/users/me/`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
-};
-
-// --- PROPERTIES ---
+// Helper to attach the token to requests
+const getAuthConfig = (token) => ({
+    headers: { 
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "multipart/form-data" // Important for image uploads
+    }
+});
 
 export const addProperty = (formData, token) => {
-  return axios.post(`${API_URL}/properties/`, formData, {
-    headers: { 
-      'Authorization': `Bearer ${token}`,
-      // Axios sets multipart boundary automatically when passing FormData
-      'Content-Type': 'multipart/form-data' 
-    }
-  });
+    return api.post("/properties/", formData, getAuthConfig(token));
 };
 
-// --- LEADS (Buying Inquiries) ---
-
-// Public: Submit interest in a property
-export const submitLead = (data) => axios.post(`${API_URL}/leads/`, data);
-
-// Private: View leads (for admins/owners)
-export const getLeads = (token) => {
-  return axios.get(`${API_URL}/leads/`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+export const createProperty = (formData, token) => {
+    // Alias for addProperty in case you used this name elsewhere
+    return addProperty(formData, token);
 };
 
-// --- CONTACT US ---
+export const getMyProfile = (token) => {
+    return api.get("/profile/", {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+};
+// Get properties posted by the logged-in user
+export const getMyProperties = (token) => {
+    return api.get("/properties/my-listings/", {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+};
 
-// Public: General contact form
-export const submitContact = (data) => axios.post(`${API_URL}/contact/`, data);
-export const getProperty = (id) => axios.get(`${API_URL}/properties/${id}/`);
+// Get properties the user has showed interest in (submitted leads)
+export const getMyInterests = (token) => {
+    return api.get("/leads/my-interests/", {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+};
+
+export default api;

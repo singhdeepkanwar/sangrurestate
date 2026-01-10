@@ -16,7 +16,7 @@ class Profile(models.Model):
         return self.full_name
 
 class Property(models.Model):
-    submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties')
     title = models.CharField(max_length=200)
     price = models.CharField(max_length=100) # Text for now (e.g. "1.5 Cr")
     location = models.CharField(max_length=200)
@@ -41,10 +41,20 @@ class PropertyImage(models.Model):
     
 class Lead(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='leads', null=True)
-    buyer_name = models.CharField(max_length=200)
+    
+    # Links to Users (for Dashboard logic)
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='leads_buyer', null=True, blank=True)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='leads_seller', null=True, blank=True)
+    
+    # Contact Info (Critical for Guest users)
+    buyer_name = models.CharField(max_length=100)
     buyer_phone = models.CharField(max_length=20)
+    
     status = models.CharField(max_length=50, default='New')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Lead for {self.property.title} by {self.buyer_name}"
 
 class Contact(models.Model):
     name = models.CharField(max_length=200)

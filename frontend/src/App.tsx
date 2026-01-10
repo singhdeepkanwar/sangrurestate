@@ -13,8 +13,10 @@ import ListProperty from "./pages/ListProperty";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
-
+import Auth from "./pages/Auth";
 import Properties from "./pages/Properties";
+import Dashboard from "./pages/Dashboard";
+
 
 const queryClient = new QueryClient();
 
@@ -30,14 +32,14 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/list-property" element={<ListProperty />} />
-
+          <Route path="/auth" element={<Auth />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/properties" element={<Properties />} />
-      
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
