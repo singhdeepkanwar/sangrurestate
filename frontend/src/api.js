@@ -3,7 +3,7 @@ import axios from "axios";
 // Automatically switch between Localhost and Railway based on environment
 const API_URL = import.meta.env.MODE === "development"
   ? "http://127.0.0.1:8000/api"
-  : "https://sangrurestate-production.up.railway.app/api";
+  : "https://backend.sangrurestate.com/api";
 
 // Create an axios instance
 const api = axios.create({
